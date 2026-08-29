@@ -1,9 +1,10 @@
 import subprocess
+from .result import PwshResult
 
-def run(script: str, *args) -> str:
+def run(script: str, *args) -> PwshResult:
     """Run a command in PowerShell and return the output."""
     if not script:
-        return "No script provided."
+        return PwshResult(stdout="", stderr="No script provided.", exit_code=1)
     
     result = subprocess.run(
         ["powershell", "-NoProfile", "-File", script, *args],
@@ -11,7 +12,4 @@ def run(script: str, *args) -> str:
         text=True
     )
 
-    if result.returncode != 0:
-        raise Exception(f"Script failed with error: {result.stderr}")
-    
-    return result.stdout.strip()
+    return PwshResult(stdout=result.stdout.strip(), stderr=result.stderr.strip(), exit_code=result.returncode)

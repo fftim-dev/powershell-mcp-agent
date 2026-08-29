@@ -15,6 +15,20 @@ def register_tools():
             "required": ["path"]
         }, 
         filesystem.list_files)
+
+    Tool(
+        "list_directory",
+        "List all files and directories in a directory",
+        {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string"
+                }
+            },
+            "required": ["path"]
+        },
+        filesystem.list_directory)
     
     Tool(
         "get_current_directory", 

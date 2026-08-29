@@ -57,5 +57,5 @@ def handle_tool_response(tool_calls, chat_history):
         chat_history.append({
             "role": "tool",
             "tool_name": tool_call.function.name,
-            "content": result
+            "content": result.json
         })
