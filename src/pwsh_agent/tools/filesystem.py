@@ -26,7 +26,13 @@ def list_directory(path) -> ToolResult:
 
 def get_current_directory() -> ToolResult:
     """Get the current working directory."""
-    return serialize_tool_result(pwsh.run(str(SCRIPTS_DIR / "get_current_directory.ps1")))
+    result = pwsh.run(
+        str(SCRIPTS_DIR / "get_current_directory.ps1"),
+        timeout=10,
+        max_output=10_000
+    )
+
+    return serialize_tool_result(result)
 
 
 def find_files(path, pattern, limit=50) -> ToolResult:
@@ -35,7 +41,8 @@ def find_files(path, pattern, limit=50) -> ToolResult:
         str(SCRIPTS_DIR / "find_files.ps1"),
         "-Path", path,
         "-Pattern", pattern,
-        "-First", str(limit)
+        "-First", str(limit),
+        timeout=45
     )
 
     return serialize_tool_result(result)
@@ -57,5 +64,8 @@ def serialize_tool_result(pwsh_result: PwshResult) -> ToolResult:
         status=status,
         content=content,
         error=error,
-        meta={"exit_code": pwsh_result.exit_code}
+        meta={
+            "exit_code": pwsh_result.exit_code,
+            "truncated": pwsh_result.truncated
+        }
     )
