@@ -1,5 +1,5 @@
 from ollama import chat
-from .tools import Tool
+from .tools.base import Tool
 from .config import PROMPTS_DIR
 
 def get_system_prompt():

@@ -12,3 +12,9 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+pwsh_agent = [
+    "prompts/*.md",
+    "powershell/scripts/*.ps1"
+]

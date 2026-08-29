@@ -1,5 +1,5 @@
 import json
-import pwsh_agent.powershell.exec as pwsh
+import pwsh_agent.powershell.runner as pwsh
 from .result import ToolResult, ToolStatus
 from pwsh_agent.powershell.result import PwshResult
 from pwsh_agent.config import SCRIPTS_DIR
