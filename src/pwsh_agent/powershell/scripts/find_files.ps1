@@ -6,7 +6,7 @@ param(
     [int]$First = 50
 )
 
-Get-ChildItem -LiteralPath $Path -Filter $Pattern -File | 
+Get-ChildItem -LiteralPath $Path -Filter $Pattern -File -Recurse | 
     Select-Object -First $First | 
     Select-Object Name, FullName, Length, PSIsContainer | 
     ConvertTo-Json

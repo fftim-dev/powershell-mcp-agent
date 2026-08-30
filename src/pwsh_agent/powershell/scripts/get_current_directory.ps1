@@ -1,1 +1,1 @@
-Get-Location
+(Get-Location).Path | ConvertTo-Json

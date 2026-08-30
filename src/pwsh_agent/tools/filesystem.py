@@ -37,6 +37,7 @@ def get_current_directory() -> ToolResult:
 
 def find_files(path, pattern, limit=50) -> ToolResult:
     """Find files in the specified directory matching the pattern."""
+    pattern = pattern.replace("\\", "/").split("/")[-1]
     result = pwsh.run(
         str(SCRIPTS_DIR / "find_files.ps1"),
         "-Path", path,
@@ -54,7 +55,10 @@ def serialize_tool_result(pwsh_result: PwshResult) -> ToolResult:
     error=None if pwsh_result.success else pwsh_result.stderr
 
     try:
-        content = json.loads(pwsh_result.stdout) if pwsh_result.success else None
+        if not pwsh_result.stdout:
+            content = None
+        else:
+            content = json.loads(pwsh_result.stdout) if pwsh_result.success else None
     except json.JSONDecodeError:
         status = ToolStatus.ERROR
         content = None
