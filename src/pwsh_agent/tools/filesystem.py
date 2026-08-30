@@ -49,6 +49,36 @@ def find_files(path, pattern, limit=50) -> ToolResult:
     return serialize_tool_result(result)
 
 
+def read_file(path) -> ToolResult:
+    """Read the contents of a single file"""
+    result = pwsh.run(
+        str(SCRIPTS_DIR / "read_file.ps1"),
+        "-Path", path
+    )
+    
+    return serialize_tool_result(result)
+
+
+def read_files(paths) -> ToolResult:
+    """Read the contents of multiple files"""
+    try:
+        paths_json = json.dumps(paths)
+    except (TypeError, ValueError) as e:
+        return ToolResult(
+            status=ToolStatus.ERROR,
+            content=None,
+            error=f"Failed to serialize paths to JSON: {e}",
+            meta={}
+        )
+    
+    result = pwsh.run(
+        str(SCRIPTS_DIR / "read_files.ps1"),
+        "-PathsJson", paths_json
+    )
+
+    return serialize_tool_result(result)
+
+
 def serialize_tool_result(pwsh_result: PwshResult) -> ToolResult:
     """Convert a PwshResult to a ToolResult."""
     status=ToolStatus.SUCCESS if pwsh_result.success else ToolStatus.ERROR

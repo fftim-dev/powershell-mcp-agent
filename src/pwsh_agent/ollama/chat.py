@@ -1,6 +1,6 @@
 from ollama import chat
-from .tools.base import Tool
-from .config import PROMPTS_DIR
+from pwsh_agent.tools.base import Tool
+from pwsh_agent.config import PROMPTS_DIR
 
 def get_system_prompt():
     try:

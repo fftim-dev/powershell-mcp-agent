@@ -60,3 +60,36 @@ def register_tools():
         }, 
         filesystem.find_files
     )
+
+    Tool(
+        "read_file",
+        "Read the contents of a single file",
+        {
+            "type": "object",
+            "properties": {
+                "path": {
+                    "type": "string"
+                }
+        },
+        "required": ["path"]
+        },
+        filesystem.read_file
+    )
+
+    Tool(
+        "read_files",
+        "Read the contents of multiple files",
+        {
+            "type": "object",
+            "properties": {
+                "paths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": ["paths"]
+        },
+        filesystem.read_files
+    )

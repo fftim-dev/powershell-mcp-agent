@@ -1,9 +1,9 @@
-from . import ollama_chat
+from .ollama.chat import start
 from .tools import register_tools
 
 def main():
     register_tools()
-    ollama_chat.start()
+    start()
 
 if __name__ == "__main__":
     main()
