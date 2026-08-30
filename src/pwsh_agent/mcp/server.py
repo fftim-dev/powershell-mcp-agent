@@ -55,6 +55,9 @@ async def run():
             server.create_initialization_options()
         )
 
+def main():
+    asyncio.run(run())
+
 
 if __name__ == "__main__":
-    asyncio.run(run())
+    main()

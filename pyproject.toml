@@ -4,8 +4,24 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pwsh-agent"
-version = "0.1.0"
+version = "0.1.1"
+description = "A PowerShell-backed MCP server and local Ollama agent for deterministic filesystem tooling."
 requires-python = ">=3.11"
+license = { text = "MIT" }
+
+dependencies = [
+    "mcp>=2.1",
+    "ollama>=0.6"
+]
+
+[project.scripts]
+pwsh-mcp = "pwsh_agent.mcp.server:main"
+pwsh-agent = "pwsh_agent.main:main"
+
+[project.urls]
+Homepage = "https://github.com/fftim-dev/powershell-mcp-agent"
+Repository = "https://github.com/fftim-dev/powershell-mcp-agent"
+Issues = "https://github.com/fftim-dev/powershell-mcp-agent/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
